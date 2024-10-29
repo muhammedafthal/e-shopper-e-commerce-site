@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+  <h2>Product Details</h2>
+
+  <% if (products.length> 0) { %>
+    <ul>
+      <% products.forEach(product=> { %>
+        <li>
+          <strong>name:</strong>
+          <%= product.name %><br>
+            <strong>Price:</strong> $<%= product.price %><br>
+              <strong>Description:</strong>
+              <%= product.description %><br>
+                <strong>category:</strong>
+                <%= product.category %>
+
+        </li>
+        <% }) %>
+    </ul>
+    <% } else { %>
+      <p>No products available.</p>
+      <% } %>
+
+        <%- include('partials/footer') %>

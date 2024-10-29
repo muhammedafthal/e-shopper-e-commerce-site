@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+
+<h2>User Profile</h2>
+
+<ul>
+  <li><strong>Name:</strong> <%= user.name %></li>
+  <li><strong>Email:</strong> <%= user.email %></li>
+  <li><strong>Address:</strong> <%= user.address || 'Not provided' %></li>
+  <li><strong>Phone:</strong> <%= user.phone || 'Not provided' %></li>
+</ul>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+
+<h2>Order Details</h2>
+
+<ul>
+  <li><strong>Order ID:</strong> <%= order._id %></li>
+  <li><strong>User:</strong> <%= order.user.name %> (<%= order.user.email %>)</li>
+  <li><strong>Total:</strong> $<%= order.total %></li>
+  <li><strong>Status:</strong> <%= order.isPaid ? 'Paid' : 'Pending' %></li>
+</ul>
+
+<h3>Products in Order</h3>
+<ul>
+  <% order.products.forEach(product => { %>
+    <li><strong>Product Name:</strong> <%= product.name %> | <strong>Price:</strong> $<%= product.price %></li>
+  <% }) %>
+</ul>
+
+<%- include('partials/footer') %>
