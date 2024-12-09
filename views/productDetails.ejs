@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product.name %> - Details</title>
+  <link rel="stylesheet" href="/css/productDetails.css">
+</head>
+
+<body>
+  <header>
+    <h1>Product Details</h1>
+  </header>
+
+  <main>
+    <!-- Product Details Section -->
+    <section class="product-details">
+      <div class="product-image">
+        <img src="<%= product.image %>" alt="<%= product.name %>" />
+      </div>
+      <div class="product-info">
+        <h2><%= product.name %></h2>
+        <p><strong>Price:</strong> $<%= product.price %></p>
+        <p><strong>Description:</strong> <%= product.description %></p>
+        <p><strong>Category:</strong> <%= product.category.name %></p>
+        <p><strong>Subcategory:</strong> <%= product.subcategory.name %></p>
+      </div>
+    </section>
+
+    <!-- Wishlist and Buy Now Buttons -->
+    <div class="product-actions">
+      <button class="wishlist-button" onclick="addToWishlist('<%= product._id %>')">Add to Wishlist</button>
+      <form action="/start/individual/addressForm/<%= product._id %>" method="get">
+        <button type="submit" class="buy-now-button">Buy Now</button>
+      </form>
+    </div>
+
+    <!-- Review Section -->
+    <section class="product-reviews">
+      <h2>Reviews</h2>
+
+      <!-- Display Existing Reviews -->
+      <% if (product.reviews && product.reviews.length > 0) { %>
+        <ul class="review-list">
+          <% product.reviews.forEach(review => { %>
+            <li class="review-item">
+              <p><strong><%= review.userId.username %>:</strong> <%= review.comment %></p>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>No reviews yet. Be the first to review!</p>
+      <% } %>
+      
+
+      <!-- Review Form -->
+      <form action="/start/viewProductDetails/<%= product._id %>/reviews" method="POST" class="review-form">
+        <label for="comment">Review:</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+        <button type="submit">Submit Review</button>
+      </form>
+    </section>
+
+  </main>
+
+  <script>
+    function addToWishlist(productId) {
+      alert('Product added to Wishlist: ' + productId); // Alert message
+      window.location.href = '/start/wishlist/add?productId=' + productId;
+    }
+  </script>
+</body>
+
+</html>

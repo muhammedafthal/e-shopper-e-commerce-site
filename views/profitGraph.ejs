@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Monthly Profit Graph</title>
+    <link rel="stylesheet" href="/css/profitGraph.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <h1>Profit Graph</h1>
+
+    <div class="container">
+        <!-- Chart Section -->
+        <div class="chart-container">
+            <canvas id="profitChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Income Report Section -->
+        <div class="income-report">
+            <h2>Monthly Income Report</h2>
+            <ul id="incomeList">
+                <!-- Income details will be dynamically inserted here -->
+            </ul>
+        </div>
+    </div>
+    
+    <div class="main-top-selling-container">
+        <div class="top-selling-products">
+        <h2>Top 5 Selling Products</h2>
+        <ul>
+            <% topSellingProducts.forEach(product => { %>
+                <li>
+                    <img src="<%= product.image %>" alt="<%= product.name %>" style="width: 50px; height: 50px;">
+                    <span><%= product.name %></span>
+                    <span>Total Sold: <%= product.totalQuantity %></span>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    </div>
+    
+
+    <script>
+        // Pass data to JavaScript from EJS
+        const profitData = <%- JSON.stringify(profitData) %>;
+
+        // Log profitData to the browser console to check if it looks correct
+        console.log("ProfitData: ", profitData);
+
+        // Check if data exists
+        if (profitData.length > 0) {
+            // Extract data for the graph
+            const labels = profitData.map(item => `${item.year}-${item.month}`);
+            const data = profitData.map(item => item.profit);
+
+            // Populate income report
+            const incomeList = document.getElementById('incomeList');
+            profitData.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Year: ${item.year}, Month: ${item.month}, Profit: $${item.profit.toFixed(2)}`;
+                incomeList.appendChild(listItem);
+            });
+
+            // Render Chart
+            const ctx = document.getElementById('profitChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar', // Bar chart for the monthly profit data
+                data: {
+                    labels: labels, // Months and Years
+                    datasets: [
+                        {
+                            label: 'Monthly Profit',
+                            data: data, // Profits
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Bars color
+                            borderColor: 'rgba(75, 192, 192, 1)', // Bar border color
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Profit Trend',
+                            data: data, // Same data for the line to represent the trend
+                            type: 'line', // Line chart for profit trend
+                            borderColor: 'red', // Red color for the line
+                            fill: false, // Don't fill the area under the line
+                            borderWidth: 2, // Line width
+                            tension: 0.4 // Smoothing the line (optional)
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                // Format the tooltip to show the value for both bar and line
+                                label: function (tooltipItem) {
+                                    let datasetLabel = tooltipItem.dataset.label || '';
+                                    let value = tooltipItem.raw;
+                                    return datasetLabel + ': $' + value.toFixed(2);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        } else {
+            console.error('No profit data available to render the graph.');
+        }
+    </script>
+
+</body>
+
+</html>

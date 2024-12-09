@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product</title>
+  <link rel="stylesheet" href="/css/editProduct.css">
+
+</head>
+
+<body>
+  <div class="link">
+    <a href="/start/admin">HOME</a>
+  <h3>Existing Products</h3>
+  </div>
+  <% products.forEach(product=> { %>
+<a href="/api/products/view/productDetails/<%= product._id %>">
+  <ul>
+   
+      <li>
+        <img src="<%= product.image %>" alt="<%= product.name %>" width="50">
+        <strong>NAME: <%= product.name %></strong>    
+       <strong>CATEGORY: <%= product.category %></strong>
+       <strong>PRICE: <%= product.price %> </strong> 
+
+        <form action="/api/products/updateProductForm/<%= product._id %>?_method=PUT" style="display:inline;">
+          <button type="submit">Edit</button>
+        </form>
+        <form method="post" action="/api/products/block/<%= product._id %>?_method=PUT" style="display:inline;">
+          <button type="submit"><%= product.isBlocked ? 'Unblock' : 'Block' %></button>
+        </form>
+        <form method="post" action="/api/products/delete/<%= product._id %>?_method=DELETE" style="display:inline;">
+          <button type="submit">Delete</button>
+        </form>
+
+      </li>
+      <% }); %>
+  </ul>
+</a>
+
+  
+  <% if (!products) { %>
+    <p>No Products Available</p>
+    <% } %>
+
+      <script>
+        function openEditForm(productId) {
+          window.location.href = `/api/products/edit/${productId}`;
+        }
+      </script>
+</body>
+
+</html>

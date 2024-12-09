@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product Details</title>
+    <link rel="stylesheet" href="/css/viewProductDetails.css">
+</head>
+
+<body>
+    <div class="link">
+        <a href="/start/admin">HOME</a>
+        <h3>Product Details</h3>
+    </div>
+
+    <div class="product-details">
+        <img src="<%= product.image %>" alt="<%= product.name %>" width="200">
+        <h2>NAME: <%= product.name %></h2>
+        <p><strong>Price:</strong> $<%= product.price %></p>
+        <p><strong>Description:</strong> <%= product.description %></p>
+        <p><strong>Category:</strong> <%= product.category ? product.category.name : 'N/A' %></p>
+        <p><strong>Subcategory:</strong> <%= product.subcategory ? product.subcategory.name : 'N/A' %></p>
+        <p><strong>Stock:</strong> <%= product.stock %></p>
+        <p><strong>Is Blocked:</strong> <%= product.isBlocked ? 'Yes' : 'No' %></p>
+
+        <h3>Reviews</h3>
+        <% if (product.reviews.length > 0) { %>
+            <ul>
+                <% product.reviews.forEach(review => { %>
+                    <li>
+                        <p><strong>Reviewer:</strong> <%= review.userId ? review.userId.username : 'Anonymous' %></p>
+                        <p><strong>Comment:</strong> <%= review.comment %></p>
+                        <!-- Delete Button -->
+                        <form action="/api/products/delete-reviews/<%= review._id %>" method="POST" style="display: inline;">
+                            <button type="submit" class="delete-review-btn">Delete</button>
+                        </form>                        
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>No reviews available.</p>
+        <% } %>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="/css/listOrder.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Your Orders</h1>
+
+        <% if (message) { %>
+            <p class="error-message">
+                <%= message %>
+            </p>
+            <% } else { %>
+                <% orders.forEach(order=> { %>
+                    <div class="order">
+                        <div class="order-details">
+                            <h3>Order ID: <%= order._id %>
+                            </h3>
+                            <p>Date: <%= new Date(order.orderDate).toLocaleDateString() %>
+                            </p>
+                            <p>Payment Status: <%= order.paymentStatus %>
+                            </p>
+                            <p>Order Status: <%= order.orderStatus %>
+                            </p>
+                            <p>Total Cost: $<%= order.totalCost.toFixed(2) %>
+                            </p>
+
+                            <!-- Disable button if the order is already paid or cancelled -->
+                            <form action="/start/cancel/order/<%= order._id %>?_method=PUT" method="post">
+                                <button type="submit" class="cancel-button" 
+                                    <% if (order.paymentStatus === 'paid' || 
+                                           order.orderStatus === 'Cancelled' || 
+                                           order.orderStatus === 'Delivered') { %>
+                                        disabled
+                                    <% } %>>
+                                    Cancel Order
+                                </button>
+                            </form>
+                            
+
+                        </div>
+
+                        <div class="order-images">
+                            <% order.product.forEach(item=> { %>
+                                <div class="order-item">
+                                    <p><strong>Product:</strong>
+                                        <%= item.name %>
+                                    </p>
+                                    <p><strong>Price:</strong> $<%= item.price.toFixed(2) %>
+                                    </p>
+                                    <p><strong>Quantity:</strong>
+                                        <%= item.quantity %>
+                                    </p>
+                                    <% if (item.image) { %>
+                                        <img src="<%= item.image %>" alt="<%= item.name %>">
+                                        <% } %>
+                                </div>
+                                <% }); %>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } %>
+    </div>
+</body>
+
+</html>

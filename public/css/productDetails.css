@@ -1,0 +1,208 @@
+/* General Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: #0077cc;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Main Content */
+main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* Product Details Section */
+.product-details {
+  display: flex;
+  flex: 1;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+}
+
+/* Product Image */
+.product-image {
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.product-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Product Info */
+.product-info {
+  flex: 2 1 400px;
+}
+
+.product-info h2 {
+  margin: 0 0 1rem;
+  font-size: 1.8rem;
+  color: #0077cc;
+}
+
+.product-info p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.product-info strong {
+  color: #555;
+}
+
+/* Product Actions */
+.product-actions {
+  /* margin-top: 2rem; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.product-actions form {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+button {
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+.wishlist-button {
+  background-color: rgb(182, 27, 27);
+  /* width: 130px;
+  height: 50px; */
+}
+
+.wishlist-button:hover {
+  background-color: rgb(131, 21, 21);
+}
+
+.buy-now-button {
+  background-color: #28a745;
+  width: 50p;
+}
+
+.buy-now-button:hover {
+  background-color: #218838;
+}
+
+/* Review Section */
+.product-reviews {
+  flex: 1;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-reviews h2 {
+  margin-top: 0;
+  font-size: 1.6rem;
+  color: #0077cc;
+}
+
+.review-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.review-item {
+  margin: 0.5rem 0;
+}
+
+.review-item p {
+  margin: 0;
+}
+
+.review-form {
+  margin-top: 1rem;
+}
+
+.review-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.review-form button {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.review-form button:hover {
+  background-color: #005fa3;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-details {
+    flex-direction: column;
+  }
+
+  main {
+    flex-direction: column;
+  }
+
+  .product-reviews {
+    margin-top: 2rem;
+  }
+}

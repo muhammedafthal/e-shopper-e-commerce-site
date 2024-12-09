@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="/css/userManagement.css">
+</head>
+<body>
+    <section id="users">
+        
+      <div class="heading"><h2>User Management</h2></div>
+      <div class="home"><button class="btn-1"><a href="/start/admin">HOME</a></button></div>
+        <%- include('partials/header') %>
+
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach((user) => { %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.username %></td>
+                <td><%= user.email %></td>
+                <td><%= user.isBlocked ? "Blocked" : "Active" %></td>
+                <td>
+                  <form method="post" action="/api/user/block/<%= user._id %>?_method=PUT" style="display:inline;">
+                  <button onclick="toggleBlockUser('<%= user._id %>')">
+                    <%= user.isBlocked ? "Unblock" : "Block" %>
+                  </button>
+                </form>
+                <form method="post" action="/api/user/delete/<%= user._id %>?_method=DELETE" style="display:inline;">
+                  <button onclick="deleteUser('<%= user._id %>')">Delete</button>
+                </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+          
+        </table>
+      </section>
+
+      <script>
+        async function toggleBlockUser(userId, isBlocked) {
+          try {
+            const response = await fetch(`/api/users/${userId}/toggle-block`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await response.json();
+            if (data.success) location.reload(); // Reload to update UI
+          } catch (error) {
+            console.error('Error toggling block status:', error);
+          }
+        }
+      
+        async function deleteUser(userId) {
+          try {
+            const response = await fetch(`/api/users/${userId}`, {
+              method: 'DELETE'
+            });
+            const data = await response.json();
+            if (data.success) location.reload(); // Reload to update UI
+          } catch (error) {
+            console.error('Error deleting user:', error);
+          }
+        }
+      </script>
+      
+</body>
+</html>

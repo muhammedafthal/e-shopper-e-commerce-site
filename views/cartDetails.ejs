@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="/css/cartDetails.css">
+</head>
+
+<body>
+  <h1>Your Cart</h1>
+  <a class="home-tag" href="/start">Home</a>
+  <% if (products.length === 0) { %>
+    <p>Your cart is empty.</p>
+  <% } else { %>
+      <!-- Total Price Section -->
+      <div id="total-price-container">
+        <h2>Total Price: $<%= products.reduce((sum, item) => sum + (item.productId.price * item.quantity), 0).toFixed(2) %></h2>
+      </div>
+    <div id="cart-items">
+      <% products.forEach(item => { %>
+        <% if (item.productId) { %>
+          <div class="cart-item" data-id="<%= item.productId._id %>">
+            <div class="image1">
+              <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>" />
+            </div>
+            <div class="productDetails">
+              <h3><%= item.productId.name %></h3>
+              <p>Price: $<%= item.productId.price %></p>
+              <p>Description: <%= item.productId.description %></p>
+              <p style="color: red;">Stock: <%= item.productId.stock %> left</p>
+              <p>Quantity: <%= item.quantity %></p>
+              <div class="quantity-controls">
+                <!-- Decrease Quantity Button -->
+                <form method="post" action="/start/cart/decrease-quantity/<%= item.productId._id %>?_method=PUT" style="display:inline;">
+                  <button type="submit" class="decrease-quantity" <%= item.quantity === 1 ? 'disabled' : '' %>>-</button>
+                </form>
+                <!-- Increase Quantity Button -->
+                <form method="post" action="/start/cart/increase-quantity/<%= item.productId._id %>?_method=PUT" style="display:inline;">
+                  <button type="submit" class="increase-quantity" <%= item.quantity >= item.productId.stock ? 'disabled' : '' %>>+</button>
+                </form>
+              </div>
+            </div>
+            <div class="button1-2">
+              <form action="/start/addressForm" method="get">
+                <button class="buy-now" >Buy Now</button>
+              </form>
+              <form method="post" action="/start/cart/remove-item/<%= item.productId._id %>?_method=DELETE" style="display:inline;">
+                <button class="remove-item" type="submit">Remove</button>
+              </form>
+            </div>
+          </div>
+        <% } %>
+      <% }); %>
+    </div>
+
+    <!-- Proceed to Checkout Button -->
+    <div id="checkout-button-container">
+      <form action="/start/addressForm" method="get">
+        <button type="submit" class="proceed-to-checkout">Proceed to Checkout</button>
+      </form>
+    </div>
+  <% } %>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+h3 {
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Product List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+li {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Details */
+li img {
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+li strong {
+  font-size: 14px;
+  margin-right: 15px;
+  color: #555;
+}
+
+/* Buttons */
+button {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  margin-left: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #1a6d2d;
+}
+
+/* Block Button Colors */
+form button {
+  background-color: #28a745;
+}
+
+form button[onclick*='Block'] {
+  background-color: #dc3545;
+}
+
+form button[onclick*='Unblock'] {
+  background-color: #28a745;
+}
+
+form button:hover {
+  filter: brightness(0.9);
+}
+
+/* No Products Available */
+p {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

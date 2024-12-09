@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="/loginuser/login" method="POST">
+            <div>
+                <input type="text" id="email" name="email" placeholder="Email">
+                <span id="emailError" class="error-message">Email is required</span>
+            </div>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Password">
+                <span id="passwordError" class="error-message">Password is required</span>
+            </div>
+            <button type="submit">Login</button>
+            <div class="link">
+                <h6><a href="/forget">Forgot password?</a></h6>
+                <h6><a href="/signuser">Don’t have an account?</a></h6>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript for validation -->
+    <script>
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        form.addEventListener('submit', (event) => {
+            let valid = true;
+
+            // Email validation pattern
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            // Password validation pattern (at least one uppercase, lowercase, digit, special character)
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            // Clear previous error messages
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+
+            // Check if email is empty or invalid
+            if (emailInput.value.trim() === '') {
+                emailError.textContent = 'Email is required';
+                emailError.style.display = 'block';
+                emailInput.classList.add('error');
+                valid = false;
+            } else if (!emailPattern.test(emailInput.value)) {
+                emailError.textContent = 'Please enter a valid email';
+                emailError.style.display = 'block';
+                emailInput.classList.add('error');
+                valid = false;
+            }
+
+            // Check if password is empty or invalid
+            if (passwordInput.value.trim() === '') {
+                passwordError.textContent = 'Password is required';
+                passwordError.style.display = 'block';
+                passwordInput.classList.add('error');
+                valid = false;
+            } else if (!passwordPattern.test(passwordInput.value)) {
+                passwordError.textContent = 'Password must contain uppercase, lowercase, number, and special character';
+                passwordError.style.display = 'block';
+                passwordInput.classList.add('error');
+                valid = false;
+            }
+
+            // Prevent form submission if validation fails
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+
+        // Hide error messages when typing
+        emailInput.addEventListener('input', () => {
+            if (emailInput.value.trim() !== '' && emailPattern.test(emailInput.value)) {
+                emailError.style.display = 'none';
+                emailInput.classList.remove('error');
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (passwordInput.value.trim() !== '' && passwordPattern.test(passwordInput.value)) {
+                passwordError.style.display = 'none';
+                passwordInput.classList.remove('error');
+            }
+        });
+    </script>
+</body>
+</html>

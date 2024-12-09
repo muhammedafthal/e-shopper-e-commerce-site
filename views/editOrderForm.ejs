@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order</title>
+    <link rel="stylesheet" href="/css/editOrder.css">
+</head>
+<body>
+    <!-- Back Button to return to Orders page (Centered) -->
+    <div class="back-button-container">
+        <a href="/api/order">
+            <button>Back to All Orders</button>
+        </a>
+    </div>
+    
+    <h1>Edit Order - <%= order._id %></h1>
+    
+    <!-- Order Edit Form -->
+    <form action="/api/order/update-order/<%= order._id %>?_method=PUT" method="post">
+        <div>
+            <label for="orderStatus">Order Status</label>
+            <select name="orderStatus" id="orderStatus" required>
+                <option value="Pending" <%= order.orderStatus === 'Pending' ? 'selected' : '' %>>Pending</option>
+                <option value="Shipped" <%= order.orderStatus === 'Shipped' ? 'selected' : '' %>>Shipped</option>
+                <option value="Delivered" <%= order.orderStatus === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+                <option value="Cancelled" <%= order.orderStatus === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="paymentStatus">Payment Status</label>
+            <select name="paymentStatus" id="paymentStatus" required>
+                <option value="Paid" <%= order.paymentStatus === 'Paid' ? 'selected' : '' %>>Paid</option>
+                <option value="Pending" <%= order.paymentStatus === 'Pending' ? 'selected' : '' %>>Pending</option>
+                <option value="Failed" <%= order.paymentStatus === 'Failed' ? 'selected' : '' %>>Failed</option>
+            </select>
+        </div>
+
+        <!-- <div>
+            <label for="paymentMethod">Payment Method</label>
+            <input type="text" name="paymentMethod" id="paymentMethod" value="<%= order.paymentMethod %>" required />
+        </div> -->
+
+        <div class="btn">
+            <button type="submit">Update Order</button>
+        </div>
+    </form>
+</body>
+</html>

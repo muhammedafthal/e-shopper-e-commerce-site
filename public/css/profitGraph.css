@@ -1,0 +1,178 @@
+/* General Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f5;
+    color: #444;
+    line-height: 1.6;
+    height: 100vh;
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #4C9D9A;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout Container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Graph Area Styling */
+.chart-container {
+    background-color: #fff;
+    flex: 3;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #4C9D9A;
+    border-top: 5px solid #4C9D9A;
+    text-align: center;
+}
+
+/* Canvas Styling */
+canvas {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+}
+
+/* Income Report Section */
+.income-report {
+    background-color: #fff;
+    margin-left: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    border-right: 5px solid #4C9D9A;
+    border-top: 5px solid #4C9D9A;
+    
+}
+
+.income-report h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4C9D9A;
+    margin-bottom: 20px;
+}
+
+.income-report ul {
+    list-style: none;
+    padding: 0;
+}
+
+.income-report li {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.income-report li:hover {
+    transform: translateX(10px);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+        margin-top: 20px;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .chart-container {
+        margin-bottom: 20px;
+        padding: 20px;
+        width: 100%;
+    }
+
+    .income-report {
+        width: 100%;
+        margin: 0;
+    }
+
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+.main-top-selling-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-selling-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #fff;
+    margin-top: 1px;
+    width: 50%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #4C9D9A;
+    border-right: 5px solid #4C9D9A;
+}
+
+.top-selling-products h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #4C9D9A;
+    margin-bottom: 15px;
+}
+
+.top-selling-products ul {
+    list-style: none;
+    padding: 0;
+}
+
+.top-selling-products li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.top-selling-products img {
+    margin-right: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.top-selling-products span {
+    font-size: 1rem;
+    color: #555;
+    margin-right: 15px;
+}
+

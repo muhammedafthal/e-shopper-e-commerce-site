@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
+    <link rel="stylesheet" href="/css/listAllOrder.css">
+</head>
+
+<body>
+    <h1>All Orders</h1>
+    <form method="GET" action="/api/order" id="filterForm">
+        <label for="paymentMethod">Payment Method:</label>
+        <select name="paymentMethod" id="paymentMethod">
+            <option value="" <%=filters.paymentMethod==='' ? 'selected' : '' %>>All</option>
+            <option value="Card" <%=filters.paymentMethod==='Card' ? 'selected' : '' %>>Card</option>
+            <option value="PayPal" <%=filters.paymentMethod==='PayPal' ? 'selected' : '' %>>PayPal</option>
+            <option value="Net Banking" <%=filters.paymentMethod==='Net Banking' ? 'selected' : '' %>>Net Banking
+            </option>
+            <option value="CashOnDelivery" <%=filters.paymentMethod==='CashOnDelivery' ? 'selected' : '' %>>Cash on
+                Delivery</option>
+        </select>
+
+        <label for="paymentMethod">Payment Status:</label>
+        <select name="paymentStatus" id="paymentStatus">
+            <option value="" <%=filters.paymentStatus==='' ? 'selected' : '' %>>All</option>
+            <option value="pending" <%=filters.paymentStatus==='pending' ? 'selected' : '' %>>Pending</option>
+            <option value="paid" <%=filters.paymentStatus==='paid' ? 'selected' : '' %>>Paid</option>
+            <option value="failed" <%=filters.paymentStatus==='failed' ? 'selected' : '' %>>Failed</option>
+        </select>
+
+        <label for="paymentMethod">Order Status:</label>
+        <select name="orderStatus" id="orderStatus">
+            <option value="" <%=filters.orderStatus==='' ? 'selected' : '' %>>All</option>
+            <option value="Pending" <%=filters.orderStatus==='Pending' ? 'selected' : '' %>>Pending</option>
+            <option value="Processing" <%=filters.orderStatus==='Processing' ? 'selected' : '' %>>Processing</option>
+            <option value="Shipped" <%=filters.orderStatus==='Shipped' ? 'selected' : '' %>>Shipped</option>
+            <option value="Delivered" <%=filters.orderStatus==='Delivered' ? 'selected' : '' %>>Delivered</option>
+            <option value="Cancelled" <%=filters.orderStatus==='Cancelled' ? 'selected' : '' %>>Cancelled</option>
+        </select>
+
+        <label for="category">Category:</label>
+        <select name="category" id="category">
+            <option value="" <%= filters.category === '' ? 'selected' : '' %>>All</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category._id %>" <%= filters.category === category._id.toString() ? 'selected' : '' %>>
+                    <%= category.name %>
+                </option>
+            <% }) %>
+        </select>
+        
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User Info</th> <!-- Changed this to "User Info" -->
+                <th>Products</th>
+                <th>Total Cost</th>
+                <th>Payment Method</th>
+                <th>Payment Status</th>
+                <th>Order Status</th>
+                <th>Order Date</th>
+                <th>Actions</th> <!-- New column for Actions -->
+            </tr>
+        </thead>
+        <tbody>
+            <% if (order && order.length > 0) { %>
+                <% order.forEach(orderItem => { %>
+                    <tr>
+                        <td>
+                            <%= orderItem._id %>
+                        </td>
+                        <td>
+                            <!-- Display User Details -->
+                            <strong>User ID:</strong> <%= orderItem.user._id %><br>
+                            <strong>Username:</strong> <%= orderItem.user.username %><br>
+                            <strong>Email:</strong> <%= orderItem.user.email %>
+                        </td>
+                        <td>
+                            <ul>
+                                <% orderItem.product.forEach(product => { %>
+                                    <li>
+                                        <strong>Name:</strong> <%= product.name %><br>
+                                        <strong>Quantity:</strong> <%= product.quantity %><br>
+                                        <strong>Price:</strong> $<%= product.price %><br>
+                                        <strong>Category:</strong> <%= product.productId.category?.name || 'N/A' %> 
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </td>
+                        <td>$<%= orderItem.totalCost.toFixed(2) %></td>
+                        <td><%= orderItem.paymentMethod %></td>
+                        <td><%= orderItem.paymentStatus %></td>
+                        <td><%= orderItem.orderStatus %></td>
+                        <td><%= new Date(orderItem.orderDate).toLocaleDateString() %></td>
+                        <td>
+                            <!-- Edit Button -->
+                            <a href="/api/order/edit-order/<%= orderItem._id %>">
+                                <button>Edit</button>
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="9">No orders found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+        
+    </table>
+    <script>
+        // Automatically trigger form submission when any select field changes
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', () => {
+                document.getElementById('filterForm').submit();
+            });
+        });
+    </script>
+</body>
+
+</html>

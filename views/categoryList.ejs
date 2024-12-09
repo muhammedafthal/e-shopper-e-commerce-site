@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/categoryList.css">
+
+</head>
+
+<body>
+  <table>
+    <h3>Category List</h3>
+    <a href="/start/admin">HOME</a>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    <% categories.forEach(category=> { %>
+      <tr>
+        <td>
+          <%= category.name %>
+        </td>
+        <td>
+          <%= category.description %>
+        </td>
+        <td>
+          <div class="btn">
+            <form method="get" action="/api/category/edit/<%= category._id %>">
+              <button type="submit">Edit</button>
+            </form>
+            <form method="post" action="/api/category/delete/<%= category._id %>?_method=DELETE">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <% }); %>
+  </table>
+
+</body>
+
+</html>

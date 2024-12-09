@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <h1>All Products</h1>
+
+  <!-- Price Filter -->
+  <div class="filter-container">
+    <label for="priceFilter">Filter by Price:</label>
+    <select id="priceFilter" onchange="filterByPrice()">
+      <option value="">Select Price Range</option>
+      <option value="0-50">Under $50</option>
+      <option value="50-100">$50 - $100</option>
+      <option value="100-200">$100 - $200</option>
+      <option value="200-400">$200 - $400</option>
+      <option value="400-800">$400 - $800</option>
+      <option value="800-1200">$800 - $1200</option>
+      <option value="1200+">Above - $1200</option>
+    </select>
+  </div>
+
+  <div class="product-container">
+    <% products.forEach(product=> { %>
+      <div class="product-card" data-price="<%= product.price %>">
+        <img src="<%= product.image %>" alt="<%= product.name %>">
+        <h3>
+          <%= product.name %>
+        </h3>
+        <p>Price: $<%= product.price %>
+        </p>
+
+        <% if (product.stock===0) { %>
+          <p style="color: red; font-weight: bold;">Out of Stock</p>
+          <% } else if (product.stock> 10) { %>
+            <p style="color: green;">
+              Stock: <%= product.stock %> left
+            </p>
+            <button class="add-to-cart" onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+            <% } else { %>
+              <p style="color: red;">
+                Stock: <%= product.stock %> left
+              </p>
+              <% } %>
+
+                <button class="wishlist" onclick="addToWhishlist('<%= product._id %>')">Add to Wishlist</button>
+                <button class="viewDetails" onclick="viewDetails('<%= product._id %>')">View Details</button>
+      </div>
+      <% }) %>
+  </div>
+
+  <script>
+    function addToCart(productId) {
+      alert('Product added to cart: ' + productId); // Alert message
+      window.location.href = '/start/addCart?productId=' + productId;
+    }
+
+    function addToWhishlist(productId) {
+      alert('Product added to Wishlist: ' + productId); // Alert message
+      window.location.href = '/start/wishlist/add?productId=' + productId;
+    }
+
+    function viewDetails(productId) {
+      window.location.href = '/start/viewProductDetails?productId=' + productId; // Redirect to product details page
+    } 
+
+    function filterByPrice() {
+      const priceRange = document.getElementById('priceFilter').value;
+      const productCards = document.querySelectorAll('.product-card');
+
+      productCards.forEach(card => {
+        const productPrice = parseFloat(card.getAttribute('data-price'));
+        card.style.display = 'block'; // Reset visibility
+
+        if (priceRange === '0-50' && productPrice > 50) {
+          card.style.display = 'none';
+        } else if (priceRange === '50-100' && (productPrice <= 50 || productPrice > 100)) {
+          card.style.display = 'none';
+        } else if (priceRange === '100-200' && (productPrice <= 100 || productPrice > 200)) {
+          card.style.display = 'none';
+        } else if (priceRange === '200-400' && (productPrice <= 200 || productPrice > 400)) {
+          card.style.display = 'none';
+        } else if (priceRange === '400-800' && (productPrice <= 400 || productPrice > 800)) {
+          card.style.display = 'none';
+        } else if (priceRange === '800-1200' && (productPrice <= 800 || productPrice > 1200)) {
+          card.style.display = 'none';
+        } else if (priceRange === '1200+' && productPrice <= 1200) {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

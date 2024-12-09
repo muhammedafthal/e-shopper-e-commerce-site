@@ -1,24 +1,35 @@
-<%- include('partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="/css/products.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+  <div class="home">
+    <a href="/start/admin">HOME</a>
+  </div>
+  
 
   <h2>Product Details</h2>
 
-  <% if (products.length> 0) { %>
+  <% if (products.length > 0) { %>
     <ul>
-      <% products.forEach(product=> { %>
+      <% products.forEach(product => { %>
         <li>
-          <strong>name:</strong>
-          <%= product.name %><br>
-            <strong>Price:</strong> $<%= product.price %><br>
-              <strong>Description:</strong>
-              <%= product.description %><br>
-                <strong>category:</strong>
-                <%= product.category %>
-
+          <strong>Name:</strong> <%= product.name %><br>
+          <strong>Price:</strong> $<%= product.price %><br>
+          <strong>Description:</strong> <%= product.description %><br>
+          <strong>Category:</strong> <%= product.category %><br>
+          <strong>Image:</strong> <img src="<%= product.image %>" alt="<%= product.name %>" style="max-width: 200px;"><br>
         </li>
-        <% }) %>
+      <% }) %>
     </ul>
-    <% } else { %>
-      <p>No products available.</p>
-      <% } %>
+  <% } else { %>
+    <p>No products available.</p>
+  <% } %>
 
-        <%- include('partials/footer') %>
+</body>
+</html>

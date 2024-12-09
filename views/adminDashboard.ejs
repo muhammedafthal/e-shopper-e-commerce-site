@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= "Admin Dashboard" %></title>
+  <link rel="stylesheet" href="/css/adminDashboard.css">
+</head>
+<body>
+
+  <% if (typeof message !== 'undefined' && message) { %>
+    <div class="alert alert-success"><%= message %></div>
+  <% } %>
+  
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>Admin Dashboard</h2>
+      <nav>
+        <ul>
+          <li><a href="/api/products/profit-graph">Overview</a></li>
+          <li><a href="/api/user">User Management</a></li>
+          <li><a href="/api/products/editproduct">Product Management</a></li>
+          <li><a href="/api/category">Category Management</a></li>
+          <li><a href="/api/order">Order Management</a></li>
+          <li><a href="/api/products/addProduct">Add New Product</a></li>
+          <li><a href="/api/category/addForm">Add New Category</a></li>
+          <li><a href="/api/products">All Products</a></li>
+          <li><a href="#analytics">Analytics</a></li>
+          <li><a href="#settings">Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section id="overview">
+        <h2>Overview</h2>
+        <p>Quick stats on sales, orders, and customers.</p>
+      </section>
+      
+      <section id="users">
+        <h2>User Management</h2>
+        <p>Manage users, roles, and permissions.</p>
+      </section>
+
+      <section id="products">
+        <h2>Product Management</h2>
+        <p>Add, edit, or delete products.</p>
+      </section>
+
+      <section id="orders">
+        <h2>Order Management</h2>
+        <p>View and manage customer orders.</p>
+      </section>
+
+      <section id="analytics">
+        <h2>Analytics</h2>
+        <p>View reports and analytics.</p>
+      </section>
+
+      <section id="settings">
+        <h2>Settings</h2>
+        <p>Configure website settings and preferences.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="/css/paymentPage.css">
+</head>
+<body>
+    <h1>Order Summary</h1>
+
+    <% if (order) { %>
+        <h2>Total Cost: $<%= order.totalCost.toFixed(2) %></h2>
+        <ul>
+            <% order.product.forEach(item => { %>
+                <li>
+                    <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>" />
+                    <strong><%= item.productId.name %></strong> - $<%= item.price %> x <%= item.quantity %>
+                </li>
+            <% }) %>
+        </ul>
+
+        <h1>Complete Your Payment</h1>
+        <button id="pay-button">Pay Now</button>
+        <p id="payment-message"></p>
+
+        
+
+        <% } else { %>
+            <p>No recent orders found. Please place an order to continue.</p>
+        <% } %>
+
+        <script>
+            document.getElementById('pay-button').addEventListener('click', async () => {
+                const messageEl = document.getElementById('payment-message');
+                messageEl.textContent = 'Redirecting to payment...';
+
+                try {
+                    const response = await fetch('/start/pay'); // Endpoint for the paymentGateway controller
+                    const { url } = await response.json();
+                    window.location.href = url; // Redirect to Stripe Checkout
+                } catch (err) {
+                    console.error('Error redirecting to Stripe Checkout:', err);
+                    messageEl.textContent = 'Failed to initiate payment. Please try again.';
+                }
+            });
+        </script>
+    </body>
+</html>

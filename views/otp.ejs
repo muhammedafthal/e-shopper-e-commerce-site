@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter OTP Code</title>
+    <link rel="stylesheet" href="/css/otp.css"> <!-- Link to your stylesheet if any -->
+</head>
+<body>
+    <div class="otp-container">
+        <h2>Enter OTP Code</h2>
+        <form action="/otp_no/otp" method="post">
+            <label for="otp">OTP Code</label>
+            <input type="text" id="otp" name="otp" required placeholder="Enter OTP code">
+            <button type="submit">Verify</button>
+        </form>
+        <p>Didn't receive the code? <a href="/resend-otp">Resend OTP</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    <link rel="stylesheet" href="/css/editCategory.css">
+</head>
+<body>
+    <form action="/api/category/<%= category._id %>" method="POST">
+        <label for="name">Category Name:</label>
+        <input type="text" name="name" value="<%= category.name %>" required>
+    
+        <label for="description">Description:</label>
+        <input type="text" name="description" value="<%= category.description %>">
+    
+        <!-- Subcategory section with dynamic input fields -->
+        <label for="subcategories">Subcategories:</label>
+        <div id="subcategoryContainer">
+            <% category.subcategories.forEach(subcat => { %>
+                <div class="subcategory-item">
+                    <!-- Hidden field for subcategory ID -->
+                    <input type="hidden" name="subcategories[<%= subcat._id %>][id]" value="<%= subcat._id %>">
+                    <!-- Field for subcategory name -->
+                    <input type="text" name="subcategories[<%= subcat._id %>][name]" value="<%= subcat.name %>" placeholder="Subcategory Name">
+                </div>
+            <% }) %>
+        </div>
+        <button type="button" onclick="addSubcategory()">Add Another Subcategory</button>
+    
+        <button type="submit">Save Changes</button>
+    </form>
+    
+    <script>
+        // JavaScript function to add a new subcategory input field
+        function addSubcategory() {
+            const container = document.getElementById('subcategoryContainer');
+            const subcategoryId = Date.now(); // Temporary unique ID for the new input
+            const subcategoryDiv = document.createElement('div');
+            subcategoryDiv.classList.add('subcategory-item');
+    
+            // Hidden ID input for the new subcategory
+            const idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = `subcategories[${subcategoryId}][id]`; // Assign a new ID to manage as part of the array
+            idInput.value = ""; // Empty ID to create a new subcategory
+            subcategoryDiv.appendChild(idInput);
+    
+            // Name input for the new subcategory
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.name = `subcategories[${subcategoryId}][name]`;
+            nameInput.placeholder = 'Subcategory Name';
+            subcategoryDiv.appendChild(nameInput);
+    
+            container.appendChild(subcategoryDiv);
+        }
+    </script>
+    
+</body>
+</html>

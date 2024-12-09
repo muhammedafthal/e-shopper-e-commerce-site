@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/signUp.css">
+    <title>Signup Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1>Sign Up</h1>
+        </div>
+        <form id="signUpForm" action="/signuser/signup" method="POST">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+                <span id="usernameError" class="error-message">Username is required</span>
+            </div>
+
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+                <span id="emailError" class="error-message">Email is required</span>
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <span id="passwordError" class="error-message">
+                    Password must contain uppercase, lowercase, numbers, and special characters.
+                </span>
+            </div>
+            <p class="error"><%= err %></p>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('signUpForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        form.addEventListener('submit', (event) => {
+            let valid = true;
+
+            // Clear previous error messages
+            usernameError.style.display = 'none';
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            // Username validation
+            if (usernameInput.value.trim() === '') {
+                usernameError.textContent = 'Username is required';
+                usernameError.style.display = 'block';
+                valid = false;
+            }
+
+            // Email validation
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailInput.value.trim() === '') {
+                emailError.textContent = 'Email is required';
+                emailError.style.display = 'block';
+                valid = false;
+            } else if (!emailPattern.test(emailInput.value)) {
+                emailError.textContent = 'Please enter a valid email';
+                emailError.style.display = 'block';
+                valid = false;
+            }
+
+            // Password validation
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (passwordInput.value.trim() === '') {
+                passwordError.textContent = 'Password is required';
+                passwordError.style.display = 'block';
+                valid = false;
+            } else if (!passwordPattern.test(passwordInput.value)) {
+                passwordError.textContent = 'Password must contain uppercase, lowercase, number, and special character';
+                passwordError.style.display = 'block';
+                valid = false;
+            }
+
+            // Prevent form submission if validation fails
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+
+        // Hide error messages when typing
+        usernameInput.addEventListener('input', () => {
+            if (usernameInput.value.trim() !== '') {
+                usernameError.style.display = 'none';
+            }
+        });
+
+        emailInput.addEventListener('input', () => {
+            if (emailInput.value.trim() !== '' && emailPattern.test(emailInput.value)) {
+                emailError.style.display = 'none';
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (passwordInput.value.trim() !== '' && passwordPattern.test(passwordInput.value)) {
+                passwordError.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
